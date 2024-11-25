@@ -1,0 +1,79 @@
+
+.header {
+    font-family: 'Cute Font'; /* 采用更可爱的字体 */
+    font-size: 21px; /* 更大的字体 */
+    color: #FFB6C1; /* 淡粉色，温柔可爱 */
+}
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-top: 5px;
+    background-color: #fff;
+  }
+  
+  input:focus {
+    border-color: #ffcc80;
+    outline: none;
+  }
+
+    textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
+    box-sizing: border-box;
+    margin-top: 5px;
+    resize: none; /* 禁用手动调整大小 */
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  button {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .add-button {
+    background-color: #ffcc80;
+    color: #fff;
+  }
+  
+  .add-button:hover {
+    background-color: #ffa726;
+  }
+  
+  .cancel-button {
+    background-color: #e0e0e0;
+    color: #555;
+  }
+  
+  .cancel-button:hover {
+    background-color: #d6d6d6;
+  }
