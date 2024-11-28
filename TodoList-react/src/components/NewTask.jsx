@@ -35,7 +35,7 @@ function NewTask({setTasks, setModalClose}) {
             console.log(task);
             const response = await api.post('/task/api/tasks', task)
             console.log(response.data)
-            setTasks((prevTasks) => [...prevTasks, response.data]);
+            setTasks((prevTasks) => [response.data,...prevTasks]);
           }catch (error) {
             console.error(error)
          }

@@ -16,12 +16,52 @@ function TaskList({tasks, setTasks, isModalOpen, setModalClose}) {
          }
     };
 
+    const handleStatusChange = async (task) => {
+        console.log('Change Task Status');
+        console.log(task);
+        try{
+            const response = await api.post(`/task/api/tasks/${task._Id}`, {...task, taskStatus: 'COMPLETED'})
+            console.log(response.data)
+            // 更新tasks里面这个task的状态
+            setTasks((prevTasks) => {
+                // 找到更新的那个task在tasks中的index
+                const taskIndex = prevTasks.findIndex((t) => t._Id === task._Id);
+                // 如果没有找到，返回原来的tasks
+                if(taskIndex === -1){
+                    return prevTasks;
+                }
+                // 如果找到了，创建一个新的task对象，状态为COMPLETED
+                const updatedTask = { ...prevTasks[taskIndex], taskStatus: 'COMPLETED' };
+
+                // 复制一份tasks作为新的tasks
+                const newTasks = [...prevTasks];
+
+                // 从新的tasks中删除原来的task，splice表示从taskIndex删除1个元素
+                newTasks.splice(taskIndex, 1);
+
+                // 将新的task push到新的tasks中，在末尾
+                newTasks.push(updatedTask);
+
+                return newTasks;
+            }
+                
+            );
+        }catch(error){
+            console.error(error)
+        }
+    };
+
     const taskItems = tasks.map((task) => (
-        <div key={task._id} className='task-container'>
+        <div key={task._id} className='task-container' >
             <div className='check-button'>
-                <input type='radio'></input>
+                 {/* 从radio改为 checkbox */}
+                <input 
+                    type='checkbox'
+                    checked={task.taskStatus === 'COMPLETED'}
+                    onChange={()=> task && handleStatusChange(task)}
+                ></input>
             </div> 
-            <div className='task-content'>
+            <div className={`task-content ${task.taskStatus === 'COMPLETED' ? 'completed-task' : ''}`}>
                 <h3>{task.taskName}</h3>
                 <p>{task.taskDescription}</p>
             </div>

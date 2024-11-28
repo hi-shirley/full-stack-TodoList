@@ -77,3 +77,15 @@
   .button-groups button:hover {
     background-color: #d9363e; /* 悬停时更深的红色 */
   }
+
+  .completed-task {
+    text-decoration: line-through; /* 删除线 */
+    color: #a0a0a0;                /* 浅灰色字体 */
+    font-style: italic;            /* 可选：斜体显示 */
+    transition: color 0.3s ease, text-decoration 0.3s ease; /* 动画效果 */
+  }
+
+  .completed-task h3, .completed-task p {
+    color: #a0a0a0; 
+    margin: 0; /* 确保间距一致 */
+}
