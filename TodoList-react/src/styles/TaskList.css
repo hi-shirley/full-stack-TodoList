@@ -1,0 +1,79 @@
+/* TaskList 容器样式 */
+.task-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 每个任务之间的间距 */
+  }
+  
+  /* 单个任务容器样式 */
+  .task-container {
+    display: flex;
+    flex-direction: row; /* 默认是row，即使不设置 */
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff; /* 白色背景 */
+    border-radius: 8px; /* 圆角 */
+    padding: 15px 20px; /* 内边距 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 动画过渡效果 */
+  }
+  
+  .task-container:hover {
+    transform: translateY(-3px); /* 悬停时轻微上浮 */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* 悬停时增强阴影 */
+  }
+  
+  /* 左侧 CheckButton 样式 */
+  .check-button {
+    flex-shrink: 0; /* 防止内容拉伸 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .check-button input[type='radio'] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  /* 中间任务内容样式 */
+  .task-content {
+    flex-grow: 1; /* 占据最大空间 */
+    padding-left: 15px; /* 与 CheckButton 分隔 */
+  }
+  
+  .task-content h3 {
+    font-size: 18px; /* 标题字体大小 */
+    margin: 0;
+    color: #333; /* 深灰色文字 */
+  }
+  
+  .task-content p {
+    font-size: 14px;
+    margin: 5px 0 0 0; /* 与标题间距 */
+    color: #666; /* 浅灰色文字 */
+  }
+  
+  /* 右侧按钮组样式 */
+  .button-groups {
+    display: flex;
+    gap: 10px; /* 按钮之间的间距 */
+  }
+  
+  .button-groups button {
+    background-color: #ff4d4f; /* 红色背景 */
+    color: white; /* 白色文字 */
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width:60px; /* 设置固定宽度 */
+    text-align: center; /* 确保文字居中 */
+}
+  
+  .button-groups button:hover {
+    background-color: #d9363e; /* 悬停时更深的红色 */
+  }

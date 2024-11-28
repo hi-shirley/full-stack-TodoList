@@ -8,8 +8,8 @@ function NewTask({setTasks, setModalClose}) {
         priority:1, 
         taskName:'', 
         taskDescription:'', 
-        dueDate:'', 
-        status:"PENDING"});
+        taskDueDate:'2024-11-2', 
+        taskStatus:"PENDING"});
 
     const addTaskStyle = {
         position: 'absolute',
@@ -18,6 +18,7 @@ function NewTask({setTasks, setModalClose}) {
         backgroundColor: '#FFF8E1',
         width:'300px',
         height:'auto',
+        zIndex: '100',
     };
 
     const handleInputChange = (e) => {
@@ -25,7 +26,7 @@ function NewTask({setTasks, setModalClose}) {
         setTask((prevTask) => ({
             ...prevTask, 
             [id]: value
-        }));
+        })); 
     };
 
     const handleAdd = async() => {
@@ -50,7 +51,7 @@ function NewTask({setTasks, setModalClose}) {
     <div style={addTaskStyle}>
         <h2 className='header'>Add a New Task</h2>
         <div className="form-group">
-            <label htmlFor="title">Select priority</label>
+            <label htmlFor="priority">Select priority</label>
             <select id='priority' value={task.priority} onChange={handleInputChange}>
                 <option value="1">Urgent and Important</option>
                 <option value="2">Not Urgent but Important</option>
@@ -59,16 +60,16 @@ function NewTask({setTasks, setModalClose}) {
             </select>
         </div>
         <div className="form-group">
-            <label htmlFor="title">Title</label>
+            <label htmlFor="taskName">Title</label>
             <input type="text" id="taskName" value={task.taskName} onChange={handleInputChange} placeholder="Task Title" />
         </div>
         <div className="form-group">
-            <label htmlFor="description">Description</label>
+            <label htmlFor="taskDescription">Description</label>
             <textarea type="text" id="taskDescription" value={task.taskDescription} onChange={handleInputChange} placeholder="Task Description" />
         </div>
         <div className="form-group">
-            <label htmlFor="title">Due Date</label>
-            <input type="datetime-local" id="dueDate"  value={task.dueDate} onChange={handleInputChange}/>
+            <label htmlFor="taskDueDate">Due Date</label>
+            <input type="date" id="taskDueDate"  value={task.taskDueDate} onChange={handleInputChange}/>
         </div>
         <div className="button-group">
             <button className="add-button" onClick={handleAdd}>

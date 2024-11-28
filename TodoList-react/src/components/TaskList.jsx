@@ -1,14 +1,37 @@
 import PropTypes from 'prop-types';
 import NewTask from './NewTask';
-
+import '../styles/TaskList.css';
+import api from '../api/axiosConfig'
 
 function TaskList({tasks, setTasks, isModalOpen, setModalClose}) {
-    const taskItems = tasks.map((task, index) => (
-        <li key={index}>
-            <h3>{task.taskName}</h3>
-            <p>{task.taskDescription}</p>
+    const handleDelete = async (id) => {
+        console.log('Delete Task');
+        try {
+            const response = await api.delete(`/task/api/tasks/${id}`)
+            console.log(response.data)
+            setTasks((prevTasks) => prevTasks.filter((task) => task._Id !== id));
+            console.log("Task Deleted")
+          }catch (error) {
+            console.error(error)
+         }
+    };
+
+    const taskItems = tasks.map((task) => (
+        <div key={task._id} className='task-container'>
+            <div className='check-button'>
+                <input type='radio'></input>
+            </div> 
+            <div className='task-content'>
+                <h3>{task.taskName}</h3>
+                <p>{task.taskDescription}</p>
+            </div>
+            <div className='button-groups'>
+                <button onClick={() => handleDelete(task._Id)}>delete</button>
+                
+            </div>
+            
   
-        </li>
+        </div>
     ))
      
     const containerStyle = {
@@ -27,7 +50,7 @@ function TaskList({tasks, setTasks, isModalOpen, setModalClose}) {
     return (
         <div style={containerStyle}>
             {isModalOpen && <NewTask setTasks={setTasks} setModalClose={setModalClose} />}
-            <ul>{taskItems}</ul>
+            <div className='task-box'>{taskItems}</div>
         </div>
     );
 }
