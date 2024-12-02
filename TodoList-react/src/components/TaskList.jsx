@@ -2,8 +2,30 @@ import PropTypes from 'prop-types';
 import NewTask from './NewTask';
 import '../styles/TaskList.css';
 import {request} from '../api/axiosConfig'
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-function TaskList({tasks, setTasks, isModalOpen, setModalClose}) {
+function TaskList({isModalOpen, setModalClose}) {
+    const { token } = useParams();
+    console.log(token);
+    console.log('Token is printed');
+    const [tasks, setTasks] = useState([]);
+
+    const getTasks = async () => {
+        console.log('Get Tasks');
+        try {
+            const response = await request('get', '/task/api/tasks', null);
+            console.log(response.data);
+            setTasks(response.data);
+        }catch (error) {
+            console.error(error)
+        }
+    };
+
+    useEffect(() => {
+        getTasks();
+    }, []);
+
     const handleDelete = async (id) => {
         console.log('Delete Task');
         try {
@@ -26,10 +48,12 @@ function TaskList({tasks, setTasks, isModalOpen, setModalClose}) {
             setTasks((prevTasks) => {
                 // 找到更新的那个task在tasks中的index
                 const taskIndex = prevTasks.findIndex((t) => t._Id === task._Id);
-                // 如果没有找到，返回原来的tasks
-                if(taskIndex === -1){
-                    return prevTasks;
-                }
+                // // 如果没有找到，返回原来的tasks
+                
+                // if(taskIndex === -1){
+                //     return prevTasks;
+                // }
+
                 // 如果找到了，创建一个新的task对象，状态为COMPLETED
                 const updatedTask = { ...prevTasks[taskIndex], taskStatus: 'COMPLETED' };
 
@@ -58,7 +82,7 @@ function TaskList({tasks, setTasks, isModalOpen, setModalClose}) {
                 <input 
                     type='checkbox'
                     checked={task.taskStatus === 'COMPLETED'}
-                    onChange={()=> task && handleStatusChange(task)}
+                    onChange={() =>  handleStatusChange(task)}
                 ></input>
             </div> 
             <div className={`task-content ${task.taskStatus === 'COMPLETED' ? 'completed-task' : ''}`}>

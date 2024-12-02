@@ -34,12 +34,22 @@ export function LoginForm({setIsLogin}){
             console.log('login');
             const response = await request('POST','/user/api/login', user);
             console.log(response.data);
-            console.log('fetch data successfully');
+            console.log('fetch token successfully');
             localStorage.setItem('auth_token', response.data);
             setIsLogin(true);
-            navigate('/tasks');
+            navigate(`/tasks/${response.data}`);
         }catch(error){
             console.error(error);
+            if(error.response){
+                const status = error.response.status;
+                if(status === 400){
+                    alert(`invalid request: ${error.response.data}`);
+                }else{
+                    alert(`登录失败，请稍后再试。错误代码：${status}`);
+                }           
+            }else{
+                alert('网络错误，请稍后再试');
+            }
         }
 
     };

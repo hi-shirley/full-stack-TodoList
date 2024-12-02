@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 function NewTask({setTasks, setModalClose}) {
     const [task, setTask] = useState({
+        userId: '',
         priority:1, 
         taskName:'', 
         taskDescription:'', 

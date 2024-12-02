@@ -10,27 +10,10 @@ import Header from './components/Header'
 
 function App() {
   // get all the tasks from the backend
-  const [tasks, setTasks] = useState([]); 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   // const navigate = useNavigate(); // 获取导航函数
 
-  const getTasks = async() => {
-    try{
-      console.log('1');
-      const response = await request('GET','/task/api/tasks',{});
-      console.log('2');
-      setTasks(response.data)
-      console.log({tasks})
-    }catch(error){
-      console.error(error)
-  }}
-
-  
-
-  useEffect(() => {
-    getTasks()  
-  },[]);
 
   const setModalOpen = () => {
     setIsModalOpen(true);
@@ -57,7 +40,7 @@ function App() {
           <Route path="/" element={<Login />} />
           {/* 定义/tasks路径 */}
           <Route path="/login" element={<LoginForm setIsLogin={setIsLogin}/>} />
-          <Route path="/tasks" element={<TaskList tasks={tasks} setTasks={setTasks} isModalOpen={isModalOpen} setModalClose={setModalClose} />} />
+          <Route path="/tasks/:token" element={<TaskList isModalOpen={isModalOpen} setModalClose={setModalClose} />} />
 
           
         </Routes>
