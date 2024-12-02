@@ -63,6 +63,16 @@ export function LoginForm({setIsLogin}){
 
         }catch(error){
             console.error(error);
+            if(error.response){
+                const status = error.response.status;
+                if(status === 400){
+                    alert(`user already exists: ${error.response.data}`);
+                }else{
+                    alert(` 注册失败，请稍后再试。错误代码：${status}`);
+                }           
+            }else{
+                alert('网络错误，请稍后再试');
+            }
         }
     };
 
