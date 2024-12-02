@@ -1,9 +1,8 @@
 
 import { FaRegClock } from 'react-icons/fa'; // 使用番茄钟图标
 import PropTypes from 'prop-types';
-
-
-function Header({setModalOpen, setIsLogin}) {
+import { useNavigate } from 'react-router-dom';
+function LoginHeader() {
     const headerStyle = {
         width: '650px', // 设置宽度为 200%，使 header 撑满整个屏幕
         display: 'flex',
@@ -37,11 +36,11 @@ function Header({setModalOpen, setIsLogin}) {
         textDecoration: 'none',
     };
 
-    const logOut = () => {
-        localStorage.removeItem('auth_token');
-        setIsLogin(false);
-        window.location.href = '/login';
-    }
+    const navigate = useNavigate(); // 获取导航函数
+     
+    const handleLoginClick = () => {
+        navigate('/login'); // 跳转到 /login 路径
+    };
 
     return (
         <header style={headerStyle}>
@@ -53,27 +52,16 @@ function Header({setModalOpen, setIsLogin}) {
 
             {/* 右侧导航栏 */}
             <nav style={navStyle}>
-                <button onClick={setModalOpen} href="#add" style={{ color: 'black', textDecoration: 'none' }}>
-                    Add
-                </button>
-                <button href="#tasks" style={{ color: 'black', textDecoration: 'none' }}>
-                    Tasks
-                </button>
-                <button href="#about" style={{ color: 'black', textDecoration: 'none' }}>
-                    About
-                </button>
-                <button onClick={logOut} href="#log out" style={{ color: 'black', textDecoration: 'none' }}>
-                Logout
+                <button onClick={handleLoginClick} href="#login" style={{ color: 'black', textDecoration: 'none' , width:'100px'}}>
+                    login
                 </button>
             </nav>
         </header>
     );
 }
-Header.propTypes = {
+LoginHeader.propTypes = {
     setModalOpen: PropTypes.func.isRequired,
-    setIsLogin: PropTypes.func.isRequired,
-    
 };
 
 
-export default Header;
+export default LoginHeader;

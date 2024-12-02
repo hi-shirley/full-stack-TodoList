@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import '../styles/NewTask.css';
-import api from '../api/axiosConfig'
+import {request} from '../api/axiosConfig'
 import { useState } from 'react';
 
 function NewTask({setTasks, setModalClose}) {
@@ -33,7 +33,7 @@ function NewTask({setTasks, setModalClose}) {
         console.log('Add Task');
         try {
             console.log(task);
-            const response = await api.post('/task/api/tasks', task)
+            const response = await request('post', '/task/api/tasks', task)
             console.log(response.data)
             setTasks((prevTasks) => [response.data,...prevTasks]);
           }catch (error) {

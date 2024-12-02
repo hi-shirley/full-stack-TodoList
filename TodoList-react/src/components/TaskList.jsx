@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import NewTask from './NewTask';
 import '../styles/TaskList.css';
-import api from '../api/axiosConfig'
+import {request} from '../api/axiosConfig'
 
 function TaskList({tasks, setTasks, isModalOpen, setModalClose}) {
     const handleDelete = async (id) => {
         console.log('Delete Task');
         try {
-            const response = await api.delete(`/task/api/tasks/${id}`)
+            const response = await request('delete', `/task/api/tasks/${id}`,null)
             console.log(response.data)
             setTasks((prevTasks) => prevTasks.filter((task) => task._Id !== id));
             console.log("Task Deleted")
@@ -20,7 +20,7 @@ function TaskList({tasks, setTasks, isModalOpen, setModalClose}) {
         console.log('Change Task Status');
         console.log(task);
         try{
-            const response = await api.post(`/task/api/tasks/${task._Id}`, {...task, taskStatus: 'COMPLETED'})
+            const response = await request('post', `/task/api/tasks/${task._Id}`, {...task, taskStatus: 'COMPLETED'})
             console.log(response.data)
             // 更新tasks里面这个task的状态
             setTasks((prevTasks) => {

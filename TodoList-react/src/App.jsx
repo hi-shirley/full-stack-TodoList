@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react'
-import api from './api/axiosConfig'
+import {request,setAuthHeader,getAuthToken} from './api/axiosConfig';
+import LoginHeader from './components/LoginHeader';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TaskList from './components/TaskList';
-
+import LoginForm from './components/LoginForm';
+import Login from './components/Login';
 import Header from './components/Header'
+
 function App() {
   // get all the tasks from the backend
   const [tasks, setTasks] = useState([]); 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   // const navigate = useNavigate(); // 获取导航函数
 
   const getTasks = async() => {
     try{
       console.log('1');
-      const response = await api.get('/task/api/tasks')
+      const response = await request('GET','/task/api/tasks',{});
       console.log('2');
       setTasks(response.data)
       console.log({tasks})
@@ -47,10 +51,14 @@ function App() {
   return (
     <Router>
       <div style={AppContainer}>
-        <Header setModalOpen={setModalOpen}/>
+        {isLogin ? <Header setModalOpen={setModalOpen} setIsLogin={setIsLogin}/> : <LoginHeader />}
         <Routes>
           {/* 定义根路径 "/" */}
-          <Route path="/" element={<TaskList tasks={tasks} setTasks={setTasks} isModalOpen={isModalOpen} setModalClose={setModalClose} />} />
+          <Route path="/" element={<Login />} />
+          {/* 定义/tasks路径 */}
+          <Route path="/login" element={<LoginForm setIsLogin={setIsLogin}/>} />
+          <Route path="/tasks" element={<TaskList tasks={tasks} setTasks={setTasks} isModalOpen={isModalOpen} setModalClose={setModalClose} />} />
+
           
         </Routes>
       </div>
